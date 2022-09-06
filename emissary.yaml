@@ -1,0 +1,8 @@
+apiVersion: packages.eks.amazonaws.com/v1alpha1
+kind: Package
+metadata:
+  name: my-ingress
+  namespace: eksa-packages
+spec:
+  packageName: emissary
+  targetNamespace: emissary

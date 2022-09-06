@@ -1,0 +1,41 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: harbor-demo
+  namespace: harbor
+spec:
+  hostname: "harbor.eksa-demo.xyz"
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name: harbor-demo 
+  namespace: harbor
+spec:
+  prefix: /
+  service: harbor.harbor:80
+  hostname: "harbor.eksa-demo.xyz"
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: harbor-acme
+  namespace: harbor
+spec:
+  hostname: "harbor.eksa-demo.xyz"
+  prefix: /.well-known/acme-challenge/
+  rewrite: ""
+  service: acme-challenge-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acme-challenge-service
+  namespace: harbor
+spec:
+  ports:
+  - port: 80
+    targetPort: 8089
+  selector:
+    acme.cert-manager.io/http01-solver: "true"

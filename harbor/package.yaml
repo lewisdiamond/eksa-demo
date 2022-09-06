@@ -1,0 +1,31 @@
+apiVersion: packages.eks.amazonaws.com/v1alpha1
+kind: Package
+metadata:
+  name: harbor
+  namespace: eksa-packages 
+spec:
+  packageName: harbor
+  targetNamespace: harbor
+  config: |
+    secretKey: Ab7RUBH5BYOMSw==
+    externalURL: https://harbor.eksa-demo.xyz
+    expose:
+      type: clusterIP
+      clusterIP:
+        # The name of ClusterIP service
+        name: harbor
+        # Annotations on the ClusterIP service
+        annotations: {}
+        ports:
+          # The service port Harbor listens on when serving HTTP
+          httpPort: 80
+          # The service port Harbor listens on when serving HTTPS
+          httpsPort: 443
+          # The service port Notary listens on. Only needed when notary.enabled
+          # is set to true
+          notaryPort: 4443
+      tls:
+        enabled: false
+    updateStrategy:
+      type: Recreate
+  

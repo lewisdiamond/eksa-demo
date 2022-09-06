@@ -1,0 +1,9 @@
+apiVersion: packages.eks.amazonaws.com/v1alpha1
+kind: Package
+metadata:
+  name: hello
+  namespace: eksa-packages
+spec:
+  packageName: hello-eks-anywhere
+
+

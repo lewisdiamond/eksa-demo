@@ -1,0 +1,12 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: hello-eksa
+spec:
+  hostname: "hello.eksa-demo.xyz"
+  tlsSecret:
+    name: hello.eksa-demo.xyz-tls
+  requestPolicy:
+    insecure:
+      action: Redirect

@@ -1,0 +1,20 @@
+apiVersion: packages.eks.amazonaws.com/v1alpha1
+kind: Package
+metadata:
+  name: mylb
+  namespace: eksa-packages
+spec:
+  packageName: metallb
+  targetNamespace: metallb-system
+  config: |
+    IPAddressPools:
+      - name: default 
+        addresses:
+          - 10.220.0.95-10.220.0.99
+    BGPAdvertisements:
+      - IPAddressPools:
+          - default
+    BGPPeers:
+      - peerAddress: 10.220.0.2
+        peerASN: 65000
+        myASN: 65002

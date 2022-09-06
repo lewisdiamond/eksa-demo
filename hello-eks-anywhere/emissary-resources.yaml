@@ -1,0 +1,40 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: hello-eksa
+spec:
+  hostname: "hello.eksa-demo.xyz"
+  requestPolicy:
+    insecure:
+      action: Route
+---
+apiVersion: getambassador.io/v3alpha1
+kind:  Mapping
+metadata:
+  name: hello-eksa
+spec:
+  prefix: /
+  service: http://hello-svc.default:80
+  hostname: "hello.eksa-demo.xyz"
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: hello-eksa-acme
+spec:
+  hostname: "hello.eksa-demo.xyz"
+  prefix: /.well-known/acme-challenge/
+  rewrite: ""
+  service: acme-challenge-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acme-challenge-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 8089
+  selector:
+    acme.cert-manager.io/http01-solver: "true"

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hello.eksa-demo.xyz
+spec:
+  dnsNames:
+  - hello.eksa-demo.xyz
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: le-prod
+  secretName: hello.eksa-demo.xyz-tls
